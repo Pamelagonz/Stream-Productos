@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
+//González Hernández Pamela Citlali
+//15211894
 
 class Product
 {
@@ -27,33 +29,66 @@ class ProductDB
     const string dir = @"C:\Users\LabTec\Desktop\";
     const string path = dir + @"Products.txt";
 
-    public static List<Product> GetProducts()
-    {
-        StreamReader textIn = 
-            new StreamReader(new FileStream(path, FileMode.Open, FileAccess.Read));
+    //public static List<Product> GetProducts()
+    //{
+        //StreamReader textIn = 
+            //new StreamReader(new FileStream(path, FileMode.Open, FileAccess.Read));
 
-        List<Product> products = new List<Product>();
-        while (textIn.Peek() != -1)
+        //List<Product> products = new List<Product>();
+        //while (textIn.Peek() != -1)
+        //{
+            //string row = textIn.ReadLine();
+            //string[] columns = row.Split('|');
+            //products.Add(new Product(columns[0], columns[1], Convert.ToDecimal(columns[2])));
+        //}
+        //return products;
+    //}
+
+    public static List<Product> GetProductsBinary()
+    {
+        List<Product>products=new List<product>(C);
+
+        BinaryReader binaryIn=new BinaryReader(new FileStream(path,FileMode.Open,FileAccess.Read));
+
+        while(binaryIn.PeekChar() !=-1)
         {
-            string row = textIn.ReadLine();
-            string[] columns = row.Split('|');
-            products.Add(new Product(columns[0], columns[1], Convert.ToDecimal(columns[2])));
+            Product p=new Product();
+
+            P.Code=binary.ReadString();
+            P.Description=binaryIn.ReadString();
+            P.Price=binaryDecimal();
+
+            product.Add(p);
         }
         return products;
     }
+    
+    //public static void SaveProducts(List<Product> products)
+    //{
+        //StreamWriter textOut = new StreamWriter(new FileStream(path, FileMode.Create, FileAccess.Write));
 
-    public static void SaveProducts(List<Product> products)
+        //foreach (Product p in products)
+        //{
+            //textOut.Write(p.Code + "|");
+            //textOut.Write(p.Description + "|");
+            //textOut.WriteLine(p.Price);
+        //}
+        //textOut.Close();
+    //}
+
+    public static void SaveProductsBinary(List<Product> products)
     {
-        StreamWriter textOut = new StreamWriter(new FileStream(path, FileMode.Create, FileAccess.Write));
+        BinaryWriter binaryOut=new BinaryWriter(
+            new FileStream(path, FileMode.Create, FileAccess.Write));
 
-        foreach (Product p in products)
+        foreach(Product p in products)
         {
-            textOut.Write(p.Code + "|");
-            textOut.Write(p.Description + "|");
-            textOut.WriteLine(p.Price);
+            binaryOut.Write(product.Code);
+            binaryOut.Write(product.Description);
+            binaryOut.Write(product.Price);
         }
-        textOut.Close();
     }
+
 }
 class Program
     {
